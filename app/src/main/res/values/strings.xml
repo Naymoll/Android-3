@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" translatable="false">Application2</string>
+    <string name="result" translatable="true">Result: </string>
+    <string name="sum" translatable="true">Sum</string>
+    <string name="empty_field_err" translatable="true">Some field is empty</string>
+    <string name="wrong_number_err" translatable="true">Wrong numbers</string>
+</resources>

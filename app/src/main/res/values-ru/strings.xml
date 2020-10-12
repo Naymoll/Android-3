@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="result">Результат: </string>
+    <string name="sum">Сумма</string>
+    <string name="empty_field_err">Одно из полей пустое</string>
+    <string name="wrong_number_err">Неверное число</string>
+</resources>
