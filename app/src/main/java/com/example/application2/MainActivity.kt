@@ -1,13 +1,16 @@
 package com.example.application2
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-const val Result_key: String = "Result"
+private const val INT_STATE = 1;
+private const val STRING_STATE = 2;
+private var state: Int = INT_STATE;
+
+private const val STATE_KEY: String = "State";
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -15,37 +18,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState != null) {
-            resultText.text = savedInstanceState.getString(Result_key)
-        }
+        /*if (savedInstanceState != null) {
+            state = savedInstanceState.getInt(STATE_KEY)
+        }*/
 
-        sumButton.setOnClickListener {
-            if (firstNumber.text.isEmpty() || secondNumber.text.isEmpty()) {
-                showSnackbar(it, getString(R.string.empty_field_err))
-                return@setOnClickListener
+        if (fragment_place != null) {
+            setFragment(IntSum.newInstance())
+            state = INT_STATE
+
+            switch_fragment_button.setOnClickListener {
+                if (state == INT_STATE) {
+                    setFragment(StringSum.newInstance())
+                    state = STRING_STATE
+                }
+                else if (state == STRING_STATE) {
+                    setFragment(IntSum.newInstance())
+                    state = INT_STATE
+                }
             }
-
-            val firstVal = firstNumber.text.toString().toIntOrNull(10)
-            val secondVal = secondNumber.text.toString().toIntOrNull(10)
-
-            if (firstVal == null || secondVal == null) {
-                showSnackbar(it, getString(R.string.wrong_number_err))
-                return@setOnClickListener
-            }
-
-            val result = getString(R.string.result) + (firstVal + secondVal).toString()
-            resultText.text = result
-
-            showSnackbar(it, result)
         }
     }
 
-    private fun showSnackbar(view: View, message: String) {
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+    private fun setFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(fragment_place.id, fragment).commit()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(Result_key, resultText.text.toString())
+    /*override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(STATE_KEY, state)
         super.onSaveInstanceState(outState)
-    }
+    }*/
 }
