@@ -18,9 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*if (savedInstanceState != null) {
+        if (savedInstanceState != null) {
             state = savedInstanceState.getInt(STATE_KEY)
-        }*/
+        }
 
         if (fragment_place != null) {
             setFragment(IntSum.newInstance())
@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(fragment_place.id, fragment).commit()
     }
 
-    /*override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(STATE_KEY, state)
         super.onSaveInstanceState(outState)
-    }*/
+    }
 }
